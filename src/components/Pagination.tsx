@@ -1,7 +1,14 @@
-import { Box, Flex } from '@chakra-ui/react';
-import ReactPaginate from 'react-paginate';
+import { Box, Flex } from '@chakra-ui/react'
+import ReactPaginate from 'react-paginate'
 
-const Pagination = ({ pageCount, handlePageChange }) => {
+type PaginationProps = {
+  pageCount: number,
+  handlePageChange: ()=> void,
+}
+
+const Pagination = (props: PaginationProps) => {
+  const {pageCount, handlePageChange } = props
+
   return (
     <Box mt={4} flexDirection="row">
       <Flex justifyContent="center">
@@ -26,7 +33,7 @@ const Pagination = ({ pageCount, handlePageChange }) => {
         />
       </Flex>
     </Box>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

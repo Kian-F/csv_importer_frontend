@@ -25,7 +25,7 @@ Run the following command to start the development server:
 
 bash
 Copy code
-npm start or yarn start
+### npm run dev
 Open your web browser and visit http://localhost:3000 to access the application.
 
 ### Features

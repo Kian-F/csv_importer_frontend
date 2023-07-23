@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Box, Table, Thead, Tbody, Tr, Th, Td, TableCaption, Input } from '@chakra-ui/react'
 import Papa from 'papaparse'
@@ -10,8 +10,8 @@ import sortData from '@/src/functions/sortData'
 export default function People() {
   const [people, setPeople] = useState([])
   const [sortedPeople, setSortedPeople] = useState([])
-  const [sortKey, setSortKey] = useState('first_name');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [sortKey, setSortKey] = useState('first_name')
+  const [sortOrder, setSortOrder] = useState('asc')
   const [currentPage, setCurrentPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState('')
   const [locationsFilter, setLocationsFilter] = useState('')
@@ -51,61 +51,61 @@ export default function People() {
     setCurrentPage(selected)
   }
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: { target: { value: SetStateAction<string> } }) => {
     setSearchTerm(event.target.value)
   }
 
-  const handleLocationFilter = (event) => {
+  const handleLocationFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setLocationsFilter(event.target.value)
   }
 
-  const handleSpeciesFilter = (event) => {
+  const handleSpeciesFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setSpeciesFilter(event.target.value)
   }
 
-  const handleWeaponFilter = (event) => {
+  const handleWeaponFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setWeaponFilter(event.target.value)
   }
 
-  const handleGenderFilter = (event) => {
+  const handleGenderFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setGenderFilter(event.target.value)
   }
 
-  const handleVehicleFilter = (event) => {
+  const handleVehicleFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setVehicleFilter(event.target.value)
   }
 
-  const handleAffiliationsFilter = (event) => {
+  const handleAffiliationsFilter = (event: { target: { value: SetStateAction<string> } }) => {
     setAffiliationsFilter(event.target.value)
   }
 
-  const handleSortToggle = (key) => {
+  const handleSortToggle = (key: { target: { value: SetStateAction<string> } }) => {
     if (sortKey === key) {
-      setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
+      setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'))
     } else {
-      setSortKey(key);
-      setSortOrder('asc');
+      setSortKey(key)
+      setSortOrder('asc')
     }
   }
 
 
-  const handleUploadCSV = (file) => {
+  const handleUploadCSV = (file: Blob) => {
     const reader = new FileReader()
 
     reader.onload = async function (event) {
       const csvData = event.target.result
 
       const parsedData = Papa.parse(csvData, { header: true })
-      console.log('parsedData::: ', parsedData.data);
+      console.log('parsedData::: ', parsedData.data)
 
       if (parsedData && parsedData.data) {
-        const newPeople = parsedData.data.map((item) => ({
+        const newPeople = parsedData.data.map((item: { Name: string; Species: string; Gender: string; Location: string; Affiliations: string; Weapon: string; Vehicle: string }) => ({
           first_name: item.Name,
           last_name: '',
           species: item.Species || '',
           gender: item.Gender || '',
-          locations: item.Location.split(',').map((location) => location.trim()),
-          affiliations: item.Affiliations.split(',').map((affiliation) => affiliation.trim()),
+          locations: item.Location.split(',').map((location: string) => location.trim()),
+          affiliations: item.Affiliations.split(',').map((affiliation: string) => affiliation.trim()),
           weapon: item.Weapon,
           vehicle: item.Vehicle,
         }))
@@ -122,50 +122,49 @@ export default function People() {
     reader.readAsText(file)
   }
 
-  const sortPeople = (data) => {
-    const sortedData = [...data];
+  const sortPeople = (data: never[]) => {
+    const sortedData = [...data]
 
     sortedData.sort((a, b) => {
-      const keyA = a[sortKey] && typeof a[sortKey] === 'string' ? a[sortKey].toLowerCase() : '';
-      const keyB = b[sortKey] && typeof b[sortKey] === 'string' ? b[sortKey].toLowerCase() : '';
+      const keyA = a[sortKey] && typeof a[sortKey] === 'string' ? a[sortKey].toLowerCase() : ''
+      const keyB = b[sortKey] && typeof b[sortKey] === 'string' ? b[sortKey].toLowerCase() : ''
 
-      if (keyA < keyB) return sortOrder === 'asc' ? -1 : 1;
-      if (keyA > keyB) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
-    });
+      if (keyA < keyB) return sortOrder === 'asc' ? -1 : 1
+      if (keyA > keyB) return sortOrder === 'asc' ? 1 : -1
+      return 0
+    })
 
-    return sortedData;
+    return sortedData
   }
 
   const filteredPeople = sortedPeople.filter((person) => {
-    const fullName = `${person.first_name} ${person.last_name}`.toLowerCase();
-    const searchTermLowerCase = searchTerm.toLowerCase();
-    const isFullNameMatch = fullName.includes(searchTermLowerCase);
+    const fullName = `${person.first_name} ${person.last_name}`.toLowerCase()
+    const searchTermLowerCase = searchTerm.toLowerCase()
+    const isFullNameMatch = fullName.includes(searchTermLowerCase)
 
     const isLocationsMatch =
       locationsFilter === '' ||
-      person?.locations.some((location) =>
-        location.name?.toLowerCase().includes(locationsFilter?.toLowerCase())
-      );
+      person?.locations.some((location: { name: string }) =>
+        location.name?.toLowerCase().includes(locationsFilter?.toLowerCase()))
 
     const isSpeciesMatch =
       speciesFilter === '' ||
-      person?.species?.toLowerCase().includes(speciesFilter?.toLowerCase());
+      person?.species?.toLowerCase().includes(speciesFilter?.toLowerCase())
 
     const isWeaponMatch =
-      weaponFilter === '' || person?.weapon?.toLowerCase().includes(weaponFilter.toLowerCase());
+      weaponFilter === '' || person?.weapon?.toLowerCase().includes(weaponFilter.toLowerCase())
 
     const isGenderMatch =
-      genderFilter === '' || person?.gender?.toLowerCase().includes(genderFilter?.toLowerCase());
+      genderFilter === '' || person?.gender?.toLowerCase().includes(genderFilter?.toLowerCase())
 
     const isVehicleMatch =
-      vehicleFilter === '' || person?.vehicle?.toLowerCase().includes(vehicleFilter?.toLowerCase());
+      vehicleFilter === '' || person?.vehicle?.toLowerCase().includes(vehicleFilter?.toLowerCase())
 
     const isAffiliationsMatch =
       affiliationsFilter === '' ||
-      person?.affiliations.some((affiliation) =>
+      person?.affiliations.some((affiliation: { name: string }) =>
         affiliation?.name?.toLowerCase()?.includes(affiliationsFilter?.toLowerCase())
-      );
+      )
 
     return (
       isFullNameMatch &&
@@ -175,11 +174,11 @@ export default function People() {
       isGenderMatch &&
       isVehicleMatch &&
       isAffiliationsMatch
-    );
+    )
   })
 
-  const offset = currentPage * resultsPerPage;
-  const paginatedPeople = sortPeople(filteredPeople).slice(offset, offset + resultsPerPage);
+  const offset = currentPage * resultsPerPage
+  const paginatedPeople = sortPeople(filteredPeople).slice(offset, offset + resultsPerPage)
   const pageCount = Math.ceil(filteredPeople.length / resultsPerPage)
 
   const hasPeople = paginatedPeople.length > 0
@@ -274,8 +273,8 @@ export default function People() {
             paginatedPeople.map((person) => (
               <Tr key={person.id}>
                 <Td>{person.first_name} {person.last_name}</Td>
-                <Td>{person?.locations?.map((location) => location.name).join(', ')}</Td>
-                <Td>{person?.affiliations?.map((affiliation) => affiliation.name).join(', ')}</Td>
+                <Td>{person?.locations?.map((location: { name: string }) => location.name).join(', ')}</Td>
+                <Td>{person?.affiliations?.map((affiliation: { name: any }) => affiliation.name).join(', ')}</Td>
                 <Td>{person.gender}</Td>
                 <Td>{person.species}</Td>
                 <Td>{person.weapon}</Td>
@@ -294,5 +293,5 @@ export default function People() {
           <Pagination pageCount={pageCount} handlePageChange={handlePageChange} />
       </Box>
     </Box>
-  );
+  )
 }
