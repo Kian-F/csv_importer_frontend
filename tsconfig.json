@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/pages/people.tsx", "src/pages/index.tsx", "src/layout.tsx", "src/layout/DefaultLayout/index.jsx", "src/components/UploadCSV.tsx", "src/components/Pagination.tsx", "src/app/layout.tsx", "src/pages/_app.tsx", "src/pages/_document.tsx", "src/pages/index.tsx", "src/pages/people.tsx"],
   "exclude": ["node_modules"]
 }
