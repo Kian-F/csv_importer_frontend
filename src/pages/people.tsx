@@ -46,7 +46,6 @@ export default function People() {
     }
   }
 
-
   const handlePageChange = ({ selected }) => {
     setCurrentPage(selected)
   }

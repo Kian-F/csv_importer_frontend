@@ -29,13 +29,13 @@ Copy code
 Open your web browser and visit http://localhost:3000 to access the application.
 
 ### Features
-Feature 1: As a user, You are be able to upload a CSV file and import the data into
+* Feature 1: As a user, You are be able to upload a CSV file and import the data into
 a database.
-Feature 2: As a user, You are able to view these results from the importer in a table..
-Feature 3: As a user, You are able to paginate through the results so that you can see a
-maximum of 10 results at a time.
-Feature 4: As a user, you can type in a search box so that you can filter the results you want to see.
-Feature 5: As a user, by clicking on a table column heading you can reorder the visible results.
+* Feature 2: As a user, You are able to view these results from the importer in a table..
+* Feature 3: As a user, You are able to paginate through the results so that you can see a
+* maximum of 10 results at a time.
+* Feature 4: As a user, you can type in a search box so that you can filter the results you want to see.
+* Feature 5: As a user, by clicking on a table column heading you can reorder the visible results.
 
 To deploy the frontend to a production environment, follow the instructions provided in Deployment Documentation.
 
