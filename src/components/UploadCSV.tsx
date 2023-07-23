@@ -2,19 +2,19 @@ import { useState } from 'react';
 import { Box, Button, FormControl, FormLabel, Input } from '@chakra-ui/react';
 
 const UploadCSV = ({ onUpload }) => {
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(null)
 
-  const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    setFile(selectedFile);
+  const handleFileChange = (event: { target: { files: any[] } }) => {
+    const selectedFile = event.target.files[0]
+    setFile(selectedFile)
   };
 
   const handleUpload = () => {
     if (file) {
-      onUpload(file);
-      setFile(null);
+      onUpload(file)
+      setFile(null)
     }
-  };
+  }
 
   return (
     <Box mt={4}>
@@ -26,7 +26,7 @@ const UploadCSV = ({ onUpload }) => {
         Upload
       </Button>
     </Box>
-  );
-};
+  )
+}
 
 export default UploadCSV

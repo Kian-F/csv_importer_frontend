@@ -5,7 +5,6 @@ import Papa from 'papaparse'
 
 import Pagination from '@/src/components/Pagination'
 import UploadCSV from '@/src/components/UploadCSV'
-import sortData from '@/src/functions/sortData'
 
 export default function People() {
   const [people, setPeople] = useState([])
